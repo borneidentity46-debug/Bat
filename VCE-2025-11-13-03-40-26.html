@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WanderWise Solutions — Admissions, Scholarships & Travel Docs</title>
+  <meta name="description" content="WanderWise Solutions — Admission & scholarship assistance, CV, SOP, Cover Letters and travel document support for UK, US, Canada, Sweden and Germany." />
+
+  <style>
+    /* -------------------------
+       Reset & Base
+    ------------------------- */
+    :root{
+      --bg: #071226;
+      --card: #0b1220;
+      --muted:#9aa4b2;
+      --accent:#0ea5a8;
+      --accent-2:#7c3aed;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --max-width:1100px;
+      --container-pad:20px;
+      --white: #eaf3f8;
+      --surface: #0f1724;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg,#071226 0%, #071930 60%);
+      color: var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      font-size:16px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* -------------------------
+       Layout
+    ------------------------- */
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:28px var(--container-pad);
+    }
+    header.site-header{
+      position: sticky;
+      top: 0;
+      z-index: 120;
+      background: linear-gradient(180deg, rgba(7,11,18,0.9), rgba(7,11,18,0.7));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:var(--max-width);margin:0 auto;padding:16px var(--container-pad)}
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.3px}
+    .brand h1 span{color:var(--accent-2)}
+    .tagline{margin:0;font-size:13px;color:var(--muted)}
+
+    nav.main-nav{display:flex;gap:12px;align-items:center}
+    nav.main-nav a{color:var(--white);opacity:.95;padding:8px 12px;border-radius:10px;font-weight:600}
+    nav.main-nav a:hover{background:rgba(255,255,255,0.03)}
+
+    /* -------------------------
+       Hero
+    ------------------------- */
+    .hero{padding:48px 0}
+    .hero-inner{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;max-width:var(--max-width);margin:0 auto}
+    .hero-text h2{font-size:28px;margin:0 0 12px;line-height:1.05}
+    .hero-text p{color:var(--muted);margin:0 0 18px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;border:0;cursor:pointer;font-weight:700}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#02121a}
+    .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white)}
+
+    /* -------------------------
+       Services grid
+    ------------------------- */
+    .section-title{font-size:20px;margin-bottom:8px}
+    .section-sub{color:var(--muted);margin-bottom:20px}
+    .service-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      margin-top:18px;
+      max-width:var(--max-width);
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .service-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:0 6px 16px rgba(2,6,23,0.6);
+      transition:transform .28s ease, box-shadow .28s ease;
+      cursor:pointer;
+      outline: none;
+    }
+    .service-card:focus, .service-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.6)}
+    .service-card h4{margin:0 0 8px}
+    .service-card p{color:var(--muted);margin:0 0 12px}
+    .open-service{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+    /* -------------------------
+       Page sections (SPA)
+    ------------------------- */
+    .page{display:none;padding:36px 20px;max-width:var(--max-width);margin:0 auto}
+    .page.active{display:block;animation:fadeIn .45s ease both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .page h2{margin-bottom:10px}
+    .page .muted{color:var(--muted)}
+
+    /* content boxes */
+    .box{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;margin-bottom:14px}
+
+    .country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+    .country{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px}
+
+    /* contact form */
+    form.contact-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    label{display:block;font-size:14px}
+    input,textarea,select{display:block;width:100%;padding:10px 12px;margin-top:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
+    textarea{min-height:120px;resize:vertical}
+    .full{grid-column:1/-1}
+    .form-actions{grid-column:1/-1;display:flex;gap:12px;align-items:center}
+    .field-error{display:block;color:#ffb4b4;font-size:13px;height:18px;margin-top:6px}
+
+    /* footer */
+    footer.site-footer{border-top:1px solid rgba(255,255,255,0.03);padding:18px 0;margin-top:30px}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    small{color:var(--muted)}
+
+    /* whatsapp button */
+    .wa-fab{position:fixed;right:20px;bottom:20px;background:#25d366;color:#02121a;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:0 10px 30px rgba(2,6,23,0.6);z-index:140}
+    .wa-fab:hover{transform:scale(1.05)}
+
+    /* responsive tweaks */
+    @media (max-width:880px){
+      .hero-inner{grid-template-columns:1fr}
+      .service-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+    }
+
+    /* accessible focus */
+    :focus{outline: 3px solid rgba(14,165,168,0.14);outline-offset:2px}
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand" aria-hidden="false">
+        <h1>WanderWise <span>Solutions</span></h1>
+        <p class="tagline">Admissions • Scholarships • CV & Documents • Travel Documents</p>
+      </div>
+
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <a href="#" data-nav="home">Home</a>
+        <a href="#" data-nav="services">Services</a>
+        <a href="#" data-nav="how">How we work</a>
+        <a href="#" data-nav="contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h2 id="hero-title">Turn your study abroad dream into a plan — and a ticket.</h2>
+          <p>WanderWise Solutions helps applicants secure admissions, scholarships, and all supporting documents (aside from passport) for <strong>the United Kingdom, United States, Canada, Sweden, and Germany</strong>.</p>
+          <div style="margin-top:16px;">
+            <a class="btn primary" href="#" data-nav="services">Explore Services</a>
+            <a class="btn outline" href="#" data-nav="contact" style="margin-left:8px">Get Started</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div style="width:360px;height:260px;border-radius:18px;background:linear-gradient(135deg,#061223,#0b1220);box-shadow:0 10px 30px rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;">
+            <div style="text-align:center;color:var(--muted)">
+              <div style="font-size:34px;font-weight:800;color:var(--accent)">W</div>
+              <div style="font-size:13px">WanderWise</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SUMMARY (cards open pages) -->
+    <section id="services" class="page" aria-labelledby="services-title">
+      <div class="container">
+        <h2 id="services-title" class="section-title">Our Main Services</h2>
+        <p class="section-sub muted">Click any service to view detailed country-specific assistance and the steps we take.</p>
+
+        <div class="service-grid" role="list">
+          <article class="service-card" role="listitem" tabindex="0" data-open="admission">
+            <h4>Admission Assistance</h4>
+            <p>Program selection, application submission and offer management for UK, US, Canada, Sweden & Germany.</p>
+            <button class="open-service" aria-haspopup="dialog" data-open="admission">Learn more</button>
+          </article>
+
+          <article class="service-card" tabindex="0" data-open="scholarship">
+            <h4>Scholarship Assistance</h4>
+            <p>Find and apply for scholarships (Chevening, DAAD, Vanier, Sweden Institute, and more).</p>
+            <button class="open-service" data-open="scholarship">Learn more</button>
+          </article>
+
+          <article class="service-card" tabindex="0" data-open="cv">
+            <h4>CV & Resume Tailoring</h4>
+            <p>Academic & job CVs optimized for admissions and recruiters with ATS considerations.</p>
+            <button class="open-service" data-open="cv">Learn more</button>
+          </article>
+
+          <article class="service-card" tabindex="0" data-open="cover">
+            <h4>Cover Letter</h4>
+            <p>Targeted cover letters for scholarships, jobs and university applications.</p>
+            <button class="open-service" data-open="cover">Learn more</button>
+          </article>
+
+          <article class="service-card" tabindex="0" data-open="sop">
+            <h4>Statement of Purpose (SOP)</h4>
+            <p>Strong SOPs that communicate fit and research direction for graduate programs.</p>
+            <button class="open-service" data-open="sop">Learn more</button>
+          </article>
+
+          <article class="service-card" tabindex="0" data-open="motivation">
+            <h4>Motivation Letter</h4>
+            <p>Concise letters tailored to scholarship providers and program committees.</p>
+            <button class="open-service" data-open="motivation">Learn more</button>
+          </article>
+
+          <article class="service-card" tabindex="0" data-open="travel-docs">
+            <h4>Travel Documents (aside from passport)</h4>
+            <p>Visa guidance, insurance, proof of funds, transcripts and other required documents.</p>
+            <button class="open-service" data-open="travel-docs">Learn more</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILED SERVICE PAGES (SPA-style) -->
+    <section id="admission" class="page" aria-labelledby="admission-title">
+      <div class="container">
+        <h2 id="admission-title">Admission Assistance</h2>
+        <div class="box">
+          <p><strong>Overview:</strong> Comprehensive support from program selection to offer acceptance. We manage timelines, application portals, document checks and university communications to increase your admission chances.</p>
+          <h4>What we do (step-by-step)</h4>
+          <ol>
+            <li>Personal assessment & program-country matching</li>
+            <li>Shortlist universities and design application strategy</li>
+            <li>Prepare tailored documents and complete applications</li>
+            <li>Follow-ups, interview preparation and offer analysis</li>
+            <li>Acceptance guidance and pre-departure planning</li>
+          </ol>
+        </div>
+
+        <div class="box">
+          <h4>Country Coverage & highlights (UK, US, Canada, Sweden, Germany)</h4>
+          <div class="country-grid">
+            <div class="country">
+              <strong>United Kingdom</strong>
+              <p class="muted">Focus on UCAS (UG) and master’s applications — strong personal statements and meeting CAS requirements.</p>
+              <p class="muted" style="font-size:13px">Typical support: UCAS advice, personal statement review, references coordination, offer negotiation.</p>
+            </div>
+            <div class="country">
+              <strong>United States</strong>
+              <p class="muted">Support for rolling & deadline-driven admissions; guidance on transcripts and standardized tests where required.</p>
+              <p class="muted" style="font-size:13px">Typical support: Application portals, test planning, school selection, recommendation guidance.</p>
+            </div>
+            <div class="country">
+              <strong>Canada</strong>
+              <p class="muted">Direct applications and provincial nuances; support for co-op and experiential programs.</p>
+              <p class="muted" style="font-size:13px">Typical support: Document validation, study permit guidance, co-op & scholarship matching.</p>
+            </div>
+            <div class="country">
+              <strong>Sweden</strong>
+              <p class="muted">Guidance for MSc and exchange programs; emphasis on clear research fit and language proof.</p>
+              <p class="muted" style="font-size:13px">Typical support: University portal guidance, transcript evaluations, scholarship planning.</p>
+            </div>
+            <div class="country">
+              <strong>Germany</strong>
+              <p class="muted">Support for English & German taught programs; Uni-Assist application and recognition advice.</p>
+              <p class="muted" style="font-size:13px">Typical support: Uni-Assist, language requirement guidance, recognition of prior studies.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <h4>Why choose WanderWise?</h4>
+          <p>Our admissions experts combine institutional knowledge, writing skills and deadline management to increase your success rate. We provide personalized strategy and targeted document support.</p>
+          <a class="btn primary" id="admission-wa" href="#" target="_blank" rel="noopener">Contact via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="scholarship" class="page" aria-labelledby="scholarship-title">
+      <div class="container">
+        <h2 id="scholarship-title">Scholarship Assistance</h2>
+        <div class="box">
+          <p><strong>Overview:</strong> End-to-end scholarship search and application support: identify relevant awards, create persuasive applications, and track deadlines so you don’t miss funding opportunities.</p>
+          <h4>What we do</h4>
+          <ul>
+            <li>Scholarship matching (merit, need, country-specific)</li>
+            <li>Application drafting and evidence preparation</li>
+            <li>Personal statements, motivation letters and essay tailoring</li>
+            <li>Submission tracking and interview prep</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h4>Country highlights</h4>
+          <div class="country-grid">
+            <div class="country"><strong>United Kingdom</strong><p class="muted">Chevening, university & departmental scholarships.</p></div>
+            <div class="country"><strong>United States</strong><p class="muted">Departmental funding, external scholarships (varies by program).</p></div>
+            <div class="country"><strong>Canada</strong><p class="muted">Federal & provincial awards, university scholarships.</p></div>
+            <div class="country"><strong>Sweden</strong><p class="muted">Sweden Institute & university scholarships.</p></div>
+            <div class="country"><strong>Germany</strong><p class="muted">DAAD and foundation scholarships.</p></div>
+          </div>
+        </div>
+
+        <div class="box">
+          <h4>Why we stand out</h4>
+          <p>We craft targeted, evidence-backed submissions focused on fit and impact rather than generic claims.</p>
+          <a class="btn primary" id="scholarship-wa" href="#" target="_blank" rel="noopener">Contact via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="cv" class="page" aria-labelledby="cv-title">
+      <div class="container">
+        <h2 id="cv-title">CV & Resume Tailoring (Academic & Job)</h2>
+        <div class="box">
+          <p><strong>Overview:</strong> Academic CVs emphasize publications and research; professional CVs focus on accomplishments and ATS friendliness. We tailor both to your goals and target country conventions.</p>
+          <h4>Services</h4>
+          <ul>
+            <li>CV/resume review & rewrite</li>
+            <li>Keyword optimization for ATS</li>
+            <li>Formatting for UK, US, Canada, Sweden, Germany conventions</li>
+            <li>Cover letters & reference advice</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h4>Country notes</h4>
+          <div class="country-grid">
+            <div class="country"><strong>UK</strong><p class="muted">Academic CV structuring and reference formatting.</p></div>
+            <div class="country"><strong>US</strong><p class="muted">Concise resume bullets and ATS optimization.</p></div>
+            <div class="country"><strong>Canada</strong><p class="muted">Emphasize co-op and practical experience.</p></div>
+            <div class="country"><strong>Sweden</strong><p class="muted">Clear layout and relevant experience highlight.</p></div>
+            <div class="country"><strong>Germany</strong><p class="muted">Lebenslauf conventions and Zeugnis handling.</p></div>
+          </div>
+        </div>
+
+        <div class="box">
+          <a class="btn primary" id="cv-wa" href="#" target="_blank" rel="noopener">Contact via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="cover" class="page" aria-labelledby="cover-title">
+      <div class="container">
+        <h2 id="cover-title">Cover Letters</h2>
+        <div class="box">
+          <p><strong>Overview:</strong> Persuasive cover letters tailored to jobs, internships, scholarships and university applications — each letter is closely matched to selection criteria.</p>
+          <h4>Process</h4>
+          <ol>
+            <li>Review opportunity and selection criteria</li>
+            <li>Drafting linked to your achievements</li>
+            <li>Tone adjustment (academic vs corporate)</li>
+            <li>Proofreading and formatting</li>
+          </ol>
+        </div>
+
+        <div class="box">
+          <a class="btn primary" id="cover-wa" href="#" target="_blank" rel="noopener">Contact via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="sop" class="page" aria-labelledby="sop-title">
+      <div class="container">
+        <h2 id="sop-title">Statement of Purpose (SOP)</h2>
+        <div class="box">
+          <p><strong>Overview:</strong> We help you craft a focused academic narrative that explains your goals, research interests and why a specific program and faculty are the right fit.</p>
+          <h4>What we do</h4>
+          <ul>
+            <li>Map goals & research interests</li>
+            <li>Link experience to program strengths</li>
+            <li>Multiple revisions with targeted feedback</li>
+            <li>Final proofing for language & impact</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <a class="btn primary" id="sop-wa" href="#" target="_blank" rel="noopener">Contact via WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="motivation" class="page" aria-labelledby="motivation-title">
+      <div class="container">
+        <h2 id="motivation-title">Motivation Letters</h2>
+        <div class="box">
+          <p><strong>Overview:</strong> Short, powerful motivation
